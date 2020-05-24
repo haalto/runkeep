@@ -26,6 +26,10 @@ export const getUserFromDB = async (id: string) => {
 
 export const createUserToDB = async (username: string, password: string) => {
   try {
+    if (!username || !password) {
+      throw new Error('Request is missing username and/or password!');
+    }
+
     const user = await db<User>('users').select('*').where({ name: username });
 
     if (user.length) {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { RequestHandler } from 'express';
 import { getUserFromDB, getUsersFromDB, createUserToDB } from './services';
 import { User } from './user';
@@ -26,9 +25,11 @@ export const getUser: RequestHandler = async (req, res) => {
 
 export const createUser: RequestHandler = async (req, res) => {
   try {
-    const username: string = req.body.user;
+    const username: string = req.body.username;
     const password: string = req.body.password;
-    const newUser: User[] = await createUserToDB(username, password);
+
+    const results: User[] = await createUserToDB(username, password);
+    const newUser = results[0];
     res.status(200).json({ user: newUser });
   } catch (err) {
     console.log(err);
