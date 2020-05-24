@@ -18,3 +18,5 @@ runRouter.post('/', createRun);
 runRouter.put('/', updateRun);
 
 runRouter.delete('/', deleteRun);
+
+export { runRouter };

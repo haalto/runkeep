@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<any> {
     table.string('name');
     table.string('password');
     table.dateTime('created_at').notNullable().defaultTo(knex.raw('now()'));
+    table.dateTime('updated_at').notNullable().defaultTo(knex.raw('now()'));
   });
 
   await knex.schema.createTable('runs', (table: Knex.TableBuilder) => {
@@ -18,7 +19,9 @@ export async function up(knex: Knex): Promise<any> {
       .onDelete('cascade');
     table.float('length');
     table.timestamp('date');
+    table.float('time');
     table.dateTime('created_at').notNullable().defaultTo(knex.raw('now()'));
+    table.dateTime('updated_at').notNullable().defaultTo(knex.raw('now()'));
   });
 }
 
