@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { login } from '../../services/loginServices';
 
 const LoginForm: React.FC = () => {
@@ -17,11 +17,6 @@ const LoginForm: React.FC = () => {
       console.log(e);
     }
   };
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   console.log(token);
-  // }, []);
 
   return (
     <form onSubmit={handleSubmit}>

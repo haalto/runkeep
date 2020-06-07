@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createUser } from '../../services/userServices';
 
 const RegisterForm = () => {
@@ -9,6 +9,7 @@ const RegisterForm = () => {
     try {
       e.preventDefault();
       const response = await createUser(username, password);
+      console.log(response);
     } catch (e) {
       console.log(e);
     }
