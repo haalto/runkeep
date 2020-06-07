@@ -30,9 +30,12 @@ const RunTracker: React.FC = () => {
           setPosition2(coordinates);
           const previousDistance = distance;
           console.log(distance);
-          setDistance(
-            previousDistance + calculateDistance(position1, position2)
-          );
+
+          if (position1 && position2) {
+            setDistance(
+              previousDistance + calculateDistance(position1, position2)
+            );
+          }
         }
       },
       (error) => {
@@ -93,30 +96,23 @@ const RunTracker: React.FC = () => {
   };
 
   const calculateDistance = (
-    position1: Coordinates | null,
-    position2: Coordinates | null
+    position1: Coordinates,
+    position2: Coordinates
   ) => {
     //https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 
-    if (position1 && position2) {
-      const R = 6371;
-      const dLat = toRad(position2.latitude - position1.latitude);
-      const dLon = toRad(position2.longitude - position1.longitude);
-      const lat1 = toRad(position1.latitude);
-      const lat2 = toRad(position2.latitude);
+    const R = 6371;
+    const dLat = toRad(position2.latitude - position1.latitude);
+    const dLon = toRad(position2.longitude - position1.longitude);
+    const lat1 = toRad(position1.latitude);
+    const lat2 = toRad(position2.latitude);
 
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) *
-          Math.sin(dLon / 2) *
-          Math.cos(lat1) *
-          Math.cos(lat2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = R * c;
-      return distance;
-    } else {
-      return 0;
-    }
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    return distance;
   };
 
   const toRad = (value: number) => {
