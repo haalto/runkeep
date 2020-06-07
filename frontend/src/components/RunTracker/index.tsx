@@ -136,6 +136,7 @@ const RunTracker: React.FC = () => {
       </span>
       <span>Speed: </span>
       <span>Distance: {distance / 0.001} meters</span>
+      <span>Distance: {distance} kilometers</span>
     </Wrapper>
   );
 };
