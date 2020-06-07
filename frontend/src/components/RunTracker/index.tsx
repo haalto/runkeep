@@ -26,6 +26,7 @@ const RunTracker: React.FC = () => {
       (position) => {
         const coordinates = position.coords;
         if (isOn) {
+          console.log(coordinates);
           setPosition1(position2);
           setPosition2(coordinates);
           const previousDistance = distance;
@@ -70,23 +71,6 @@ const RunTracker: React.FC = () => {
   }, [time]);
 
   const startTimer = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setTimeout(() => {
-          const coordinates = position.coords;
-          if (isOn) {
-            setPosition1(coordinates);
-            setPosition2(coordinates);
-          }
-        }, 1000);
-      },
-      (error) => {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    );
     setStart(Date.now());
     setIsOn(true);
   };
@@ -125,7 +109,10 @@ const RunTracker: React.FC = () => {
       <Button onClick={() => startTimer()}>Start</Button>
       <Button onClick={() => stopTimer()}>Stop</Button>
       <span>
-        Position: {position2?.latitude} {position2?.longitude}
+        Position1: {position1?.latitude} {position1?.longitude}
+      </span>
+      <span>
+        Position2: {position2?.latitude} {position2?.longitude}
       </span>
       <span>Speed: </span>
       <span>Distance: {distance / 0.001} meters</span>
