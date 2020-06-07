@@ -23,29 +23,34 @@ const RunTracker: React.FC = () => {
   const [distance, setDistance] = useState<number>(0);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const coordinates = position.coords;
-        if (isOn) {
-          setPosition1(position2);
-          setPosition2(coordinates);
-          const previousDistance = distance;
+    const intervalId = setInterval(() => {
+      if (isOn) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const coordinates = position.coords;
+            if (isOn) {
+              setPosition1(position2);
+              setPosition2(coordinates);
+              const previousDistance = distance;
 
-          if (position1 && position2) {
-            setDistance(
-              previousDistance + calculateDistance(position1, position2)
-            );
+              if (position1 && position2) {
+                setDistance(
+                  previousDistance + calculateDistance(position1, position2)
+                );
+              }
+            }
+          },
+          (error) => {
+            console.log(error);
+          },
+          {
+            enableHighAccuracy: true,
           }
-        }
-      },
-      (error) => {
-        console.log(error);
-      },
-      {
-        enableHighAccuracy: true,
+        );
       }
-    );
-  }, [time]);
+    }, 2000);
+    return () => clearInterval(intervalId);
+  }, [isOn]);
 
   useEffect(() => {
     if (isOn) {
