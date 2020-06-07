@@ -23,34 +23,27 @@ const RunTracker: React.FC = () => {
   const [distance, setDistance] = useState<number>(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (isOn) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const coordinates = position.coords;
-            if (isOn) {
-              setPosition1(position2);
-              setPosition2(coordinates);
-              const previousDistance = distance;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const coordinates = position.coords;
+        setPosition1(position2);
+        setPosition2(coordinates);
+        const previousDistance = distance;
 
-              if (position1 && position2) {
-                setDistance(
-                  previousDistance + calculateDistance(position1, position2)
-                );
-              }
-            }
-          },
-          (error) => {
-            console.log(error);
-          },
-          {
-            enableHighAccuracy: true,
-          }
-        );
+        if (position1 && position2) {
+          setDistance(
+            previousDistance + calculateDistance(position1, position2)
+          );
+        }
+      },
+      (error) => {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
       }
-    }, 2000);
-    return () => clearInterval(intervalId);
-  }, [isOn]);
+    );
+  }, [time]);
 
   useEffect(() => {
     if (isOn) {
@@ -83,17 +76,14 @@ const RunTracker: React.FC = () => {
     setIsOn(false);
   };
 
-  const calculateDistance = (
-    position1: Coordinates,
-    position2: Coordinates
-  ) => {
+  const calculateDistance = (pos1: Coordinates, pos2: Coordinates) => {
     //https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 
     const R = 6371;
-    const dLat = toRad(position2.latitude - position1.latitude);
-    const dLon = toRad(position2.longitude - position1.longitude);
-    const lat1 = toRad(position1.latitude);
-    const lat2 = toRad(position2.latitude);
+    const dLat = toRad(pos2.latitude - pos1.latitude);
+    const dLon = toRad(pos2.longitude - pos1.longitude);
+    const lat1 = toRad(pos1.latitude);
+    const lat2 = toRad(pos2.latitude);
 
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
