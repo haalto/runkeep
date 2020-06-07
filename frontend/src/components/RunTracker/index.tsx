@@ -26,6 +26,11 @@ const RunTracker: React.FC = () => {
       (position) => {
         const coordinates = position.coords;
         if (isOn) {
+          if (!position2) {
+            setPosition1(coordinates);
+            setPosition2(coordinates);
+          }
+
           console.log(coordinates);
           setPosition1(position2);
           setPosition2(coordinates);
