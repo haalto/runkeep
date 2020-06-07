@@ -6,10 +6,54 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-items: center;
   align-items: center;
+  margin-top: 6rem;
 `;
 
-const Button = styled.button`
-  width: 30%;
+const StartButton = styled.button`
+  width: 10rem;
+  border-radius: 20rem;
+  background-color: rgba(10, 180, 10, 0.8);
+  height: 5rem;
+  font-family: inherit;
+  font-size: 2rem;
+  margin: 4rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 2px 1px grey;
+  border: none;
+  color: #ffff;
+  letter-spacing: 0.2rem;
+`;
+
+const StopButton = styled.button`
+  background-color: rgba(200, 10, 10, 0.8);
+  width: 10rem;
+  border-radius: 20rem;
+  height: 5rem;
+  font-family: inherit;
+  font-size: 2rem;
+  margin: 4rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 2px 1px grey;
+  border: none;
+  color: #ffff;
+  letter-spacing: 0.2rem;
+`;
+
+const Timer = styled.span`
+  font-size: 4rem;
+  padding: 1rem;
+`;
+
+const Stats = styled.div``;
+
+const Speed = styled.span`
+  font-size: 2rem;
+  padding: 1rem;
+`;
+
+const Distance = styled.span`
+  font-size: 2rem;
+  padding: 1rem;
 `;
 
 const RunTracker: React.FC = () => {
@@ -21,6 +65,7 @@ const RunTracker: React.FC = () => {
   const [position2, setPosition2] = useState<Coordinates | null>(null);
   const [distance, setDistance] = useState<number>(0);
   const [GPSInterval, setGPSInterval] = useState(true);
+  const [speed, setSpeed] = useState<number>(0);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -35,6 +80,7 @@ const RunTracker: React.FC = () => {
           setDistance(
             previousDistance + calculateDistance(position1, position2)
           );
+          setSpeed((distance / time) * 60 * 60);
         }
       },
       (error) => {
@@ -77,6 +123,9 @@ const RunTracker: React.FC = () => {
   }, [time]);
 
   const startTimer = () => {
+    setDistance(0);
+    setSpeed(0);
+    setTime(0);
     setStart(Date.now());
     setIsOn(true);
   };
@@ -108,18 +157,20 @@ const RunTracker: React.FC = () => {
 
   return (
     <Wrapper>
-      <span>{formattedTime}</span>
-      <Button onClick={() => startTimer()}>Start</Button>
-      <Button onClick={() => stopTimer()}>Stop</Button>
-      <span>
+      <Timer>{formattedTime}</Timer>
+      <Distance>{distance / 0.001} meters</Distance>
+      <Speed>{speed} km/h</Speed>
+      {!isOn ? (
+        <StartButton onClick={() => startTimer()}>Start</StartButton>
+      ) : (
+        <StopButton onClick={() => stopTimer()}>Stop</StopButton>
+      )}
+      {/* <span>
         Position1: {position1?.latitude} {position1?.longitude}
       </span>
       <span>
         Position2: {position2?.latitude} {position2?.longitude}
-      </span>
-      <span>Speed: </span>
-      <span>Distance: {distance / 0.001} meters</span>
-      <span>Distance: {distance} kilometers</span>
+      </span> */}
     </Wrapper>
   );
 };
