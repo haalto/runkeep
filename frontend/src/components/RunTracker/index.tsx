@@ -123,6 +123,8 @@ const RunTracker: React.FC = () => {
   }, [time]);
 
   const startTimer = () => {
+    setPosition1(null);
+    setPosition2(null);
     setDistance(0);
     setSpeed(0);
     setTime(0);
