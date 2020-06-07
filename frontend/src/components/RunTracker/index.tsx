@@ -17,14 +17,26 @@ const RunTracker: React.FC = () => {
   const [start, setStart] = useState<number>(0);
   const [isOn, setIsOn] = useState<boolean>(false);
   const [formattedTime, setFormattedTime] = useState('00:00:00');
-  const [position, setPosition] = useState<Coordinates | null>(null);
+  const [position1, setPosition1] = useState<Coordinates | null>(null);
+  const [position2, setPosition2] = useState<Coordinates | null>(null);
+  const [distance, setDistance] = useState<number>(0);
 
   navigator.geolocation.watchPosition(
     (position) => {
       const coordinates = position.coords;
-      console.log(coordinates);
+
       if (isOn) {
-        setPosition(coordinates);
+        if (!position1 && !position2) {
+          setPosition1(coordinates);
+          setPosition2(coordinates);
+        } else {
+          setPosition1(position2);
+          setPosition2(coordinates);
+          const previousDistance = distance;
+          setDistance(
+            previousDistance + calculateDistance(position1, position2)
+          );
+        }
       }
     },
     (error) => {
@@ -62,9 +74,8 @@ const RunTracker: React.FC = () => {
       (position) => {
         setTimeout(() => {
           const coordinates = position.coords;
-          console.log(coordinates);
           if (isOn) {
-            setPosition(coordinates);
+            setPosition1(coordinates);
           }
         }, 1000);
       },
@@ -83,16 +94,47 @@ const RunTracker: React.FC = () => {
     setIsOn(false);
   };
 
+  const calculateDistance = (
+    position1: Coordinates | null,
+    position2: Coordinates | null
+  ) => {
+    //https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+
+    if (position1 && position2) {
+      const R = 6371;
+      const dLat = toRad(position2.latitude - position1.latitude);
+      const dLon = toRad(position2.longitude - position1.longitude);
+      const lat1 = toRad(position1.latitude);
+      const lat2 = toRad(position2.latitude);
+
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) *
+          Math.sin(dLon / 2) *
+          Math.cos(lat1) *
+          Math.cos(lat2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c;
+      return distance;
+    } else {
+      return 0;
+    }
+  };
+
+  const toRad = (value: number) => {
+    return (value * Math.PI) / 180;
+  };
+
   return (
     <Wrapper>
       <span>{formattedTime}</span>
       <Button onClick={() => startTimer()}>Start</Button>
       <Button onClick={() => stopTimer()}>Stop</Button>
       <span>
-        Position: {position?.latitude} {position?.longitude}
+        Position: {position2?.latitude} {position2?.longitude}
       </span>
       <span>Speed: </span>
-      <span>Distance</span>
+      <span>Distance: {distance}</span>
     </Wrapper>
   );
 };
