@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { logRoles } from '@testing-library/react';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,6 +20,7 @@ const RunTracker: React.FC = () => {
   const [position1, setPosition1] = useState<Coordinates | null>(null);
   const [position2, setPosition2] = useState<Coordinates | null>(null);
   const [distance, setDistance] = useState<number>(0);
+  const [GPSInterval, setGPSInterval] = useState(true);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -29,6 +29,7 @@ const RunTracker: React.FC = () => {
         setPosition1(position2);
         setPosition2(coordinates);
         const previousDistance = distance;
+        console.log('here');
 
         if (position1 && position2) {
           setDistance(
@@ -43,16 +44,24 @@ const RunTracker: React.FC = () => {
         enableHighAccuracy: true,
       }
     );
-  }, [time]);
+  }, [GPSInterval]);
 
   useEffect(() => {
     if (isOn) {
       setTimeout(() => {
         const newTime = Date.now() - start;
         setTime(newTime);
-      }, 1);
+      }, 500);
     }
   }, [start, time, isOn]);
+
+  useEffect(() => {
+    if (isOn) {
+      setTimeout(() => {
+        setGPSInterval(!GPSInterval);
+      }, 5000);
+    }
+  }, [isOn, time]);
 
   useEffect(() => {
     const timeInSeconds = time / 1000;
