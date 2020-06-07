@@ -80,7 +80,7 @@ const RunTracker: React.FC = () => {
           setDistance(
             previousDistance + calculateDistance(position1, position2)
           );
-          setSpeed((distance / time) * 3600);
+          setSpeed((distance / time) * 3600 * 3600);
         }
       },
       (error) => {
@@ -158,8 +158,8 @@ const RunTracker: React.FC = () => {
   return (
     <Wrapper>
       <Timer>{formattedTime}</Timer>
-      <Distance>{distance / 0.001} meters</Distance>
-      <Speed>{speed} km/h</Speed>
+      <Distance>{Math.round(distance / 0.001)} meters</Distance>
+      <Speed>{speed.toFixed(2)} km/h</Speed>
       {!isOn ? (
         <StartButton onClick={() => startTimer()}>Start</StartButton>
       ) : (
