@@ -80,7 +80,7 @@ const RunTracker: React.FC = () => {
           setDistance(
             previousDistance + calculateDistance(position1, position2)
           );
-          setSpeed((distance / time) * 60 * 60);
+          setSpeed((distance / time) * 3600);
         }
       },
       (error) => {
