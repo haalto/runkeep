@@ -134,7 +134,7 @@ const RunTracker: React.FC = () => {
         Position: {position2?.latitude} {position2?.longitude}
       </span>
       <span>Speed: </span>
-      <span>Distance: {distance}</span>
+      <span>Distance: {distance / 0.001} meters</span>
     </Wrapper>
   );
 };
