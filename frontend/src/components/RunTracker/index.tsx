@@ -26,17 +26,13 @@ const RunTracker: React.FC = () => {
       (position) => {
         const coordinates = position.coords;
         if (isOn) {
-          if (!position1 && !position2) {
-            setPosition1(coordinates);
-            setPosition2(coordinates);
-          } else {
-            setPosition1(position2);
-            setPosition2(coordinates);
-            const previousDistance = distance;
-            setDistance(
-              previousDistance + calculateDistance(position1, position2)
-            );
-          }
+          setPosition1(position2);
+          setPosition2(coordinates);
+          const previousDistance = distance;
+          console.log(distance);
+          setDistance(
+            previousDistance + calculateDistance(position1, position2)
+          );
         }
       },
       (error) => {
@@ -77,6 +73,7 @@ const RunTracker: React.FC = () => {
           const coordinates = position.coords;
           if (isOn) {
             setPosition1(coordinates);
+            setPosition2(coordinates);
           }
         }, 1000);
       },
