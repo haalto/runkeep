@@ -21,31 +21,32 @@ const RunTracker: React.FC = () => {
   const [position2, setPosition2] = useState<Coordinates | null>(null);
   const [distance, setDistance] = useState<number>(0);
 
-  navigator.geolocation.watchPosition(
-    (position) => {
-      const coordinates = position.coords;
-
-      if (isOn) {
-        if (!position1 && !position2) {
-          setPosition1(coordinates);
-          setPosition2(coordinates);
-        } else {
-          setPosition1(position2);
-          setPosition2(coordinates);
-          const previousDistance = distance;
-          setDistance(
-            previousDistance + calculateDistance(position1, position2)
-          );
+  useEffect(() => {
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const coordinates = position.coords;
+        if (isOn) {
+          if (!position1 && !position2) {
+            setPosition1(coordinates);
+            setPosition2(coordinates);
+          } else {
+            setPosition1(position2);
+            setPosition2(coordinates);
+            const previousDistance = distance;
+            setDistance(
+              previousDistance + calculateDistance(position1, position2)
+            );
+          }
         }
+      },
+      (error) => {
+        console.log(error);
+      },
+      {
+        enableHighAccuracy: true,
       }
-    },
-    (error) => {
-      console.log(error);
-    },
-    {
-      enableHighAccuracy: true,
-    }
-  );
+    );
+  }, [isOn]);
 
   useEffect(() => {
     if (isOn) {
