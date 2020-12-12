@@ -93,13 +93,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/knex@^0.16.1":
-  version "0.16.1"
-  resolved "https://botbuilder.myget.org/F/botframework-cli/npm/@types/knex/-/@types/knex-0.16.1.tgz#619678407265c675463c563ed38323461a49515d"
-  integrity sha1-YZZ4QHJlxnVGPFY+04MjRhpJUV0=
-  dependencies:
-    knex "*"
-
 "@types/mime@*":
   version "2.0.1"
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/@types/mime/-/@types/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
@@ -1391,9 +1384,9 @@ inherits@2.0.3:
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
 ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://botbuilder.myget.org/F/botframework-cli/npm/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha1-7uJfVtscnsYIXgwid4CD9Zar+Sc=
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
+  integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
 inquirer@^7.0.0:
   version "7.1.0"
@@ -1716,7 +1709,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
 
-knex@*, knex@^0.21.1:
+knex@^0.21.1:
   version "0.21.1"
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/knex/-/knex-0.21.1.tgz#4fba7e6c58c9f459846c3090be157a732fc75e41"
   integrity sha1-T7p+bFjJ9FmEbDCQvhV6cy/HXkE=
