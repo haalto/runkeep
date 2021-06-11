@@ -93,13 +93,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/knex@^0.16.1":
-  version "0.16.1"
-  resolved "https://botbuilder.myget.org/F/botframework-cli/npm/@types/knex/-/@types/knex-0.16.1.tgz#619678407265c675463c563ed38323461a49515d"
-  integrity sha1-YZZ4QHJlxnVGPFY+04MjRhpJUV0=
-  dependencies:
-    knex "*"
-
 "@types/mime@*":
   version "2.0.1"
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/@types/mime/-/@types/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
@@ -1716,7 +1709,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
 
-knex@*, knex@^0.21.1:
+knex@^0.21.1:
   version "0.21.1"
   resolved "https://botbuilder.myget.org/F/botframework-cli/npm/knex/-/knex-0.21.1.tgz#4fba7e6c58c9f459846c3090be157a732fc75e41"
   integrity sha1-T7p+bFjJ9FmEbDCQvhV6cy/HXkE=
@@ -2021,9 +2014,9 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   integrity sha1-Dc1p/yOhybEf0JeDFmRKA4ghamU=
 
 normalize-url@^4.1.0:
-  version "4.5.0"
-  resolved "https://botbuilder.myget.org/F/botframework-cli/npm/normalize-url/-/normalize-url-4.5.0.tgz#453354087e6ca96957bd8f5baf753f5982142129"
-  integrity sha1-RTNUCH5sqWlXvY9br3U/WYIUISk=
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
+  integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
 
 object-assign@^4:
   version "4.1.1"
